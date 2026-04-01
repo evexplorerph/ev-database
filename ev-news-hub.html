@@ -202,6 +202,23 @@
   footer .copy a { color: var(--cyan); text-decoration: none; }
   footer .copy a:hover { text-decoration: underline; }
 
+  /* ── KEY SOURCES ── */
+  .key-sources { margin-top: 32px; }
+  .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 12px; }
+  .source-card {
+    background: var(--navy-3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s;
+  }
+  .source-card:hover { background: var(--navy-4); border-color: var(--border-bright); }
+  .source-icon { font-size: 20px; flex-shrink: 0; width: 36px; text-align: center; }
+  .source-body { flex: 1; }
+  .source-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .source-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .source-arrow { font-size: 14px; color: var(--cyan); opacity: 0.7; flex-shrink: 0; }
+  .source-card:hover .source-arrow { opacity: 1; }
+
   @media (max-width: 640px) {
     .page { padding: 0 16px 48px; }
     .card-featured { flex-direction: column; }
@@ -209,6 +226,7 @@
     .feat-body h2 { font-size: 16px; }
     .stat-num { font-size: 26px; }
     .news-grid { grid-template-columns: 1fr; }
+    .sources-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -218,7 +236,7 @@
   <div class="title-section">
     <p class="page-label">Live Feed</p>
     <h1>EV <span>News</span> Hub</h1>
-    <p class="subtitle">Auto-fetched headlines on Philippine EV news, global updates, EVIDA policy, new model launches, and battery technology — curated for Filipino readers. No tokens consumed.</p>
+    <p class="subtitle">Auto-fetched headlines on Philippine EV news, global updates, EVIDA policy, new model launches, and battery technology — curated for Filipino readers.</p>
   </div>
 
   <div class="stats-row">
@@ -261,24 +279,71 @@
 
   <div class="footer-note">
     <strong>About this feed:</strong>
-    Headlines are pulled live from Google News RSS via rss2json — no Anthropic API tokens consumed. Articles are auto-categorized by keyword matching. Previously fetched articles are retained across refreshes (up to 80 articles). Click any card to open the original source. EV Explorer PH does not verify individual article claims.
+    Headlines are pulled live from Google News RSS and auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime using the Refresh button. Previously fetched articles are retained across visits (up to 80 articles). Click any card to read the full article from the original source.
+  </div>
+
+  <div class="key-sources">
+    <p class="page-label" style="margin-bottom:14px;">Key Philippine EV Sources</p>
+    <div class="sources-grid">
+      <a class="source-card" href="https://evindustry.ph/news-and-update" target="_blank">
+        <div class="source-icon">🏛️</div>
+        <div class="source-body">
+          <div class="source-name">DOE — EV Industry PH</div>
+          <div class="source-desc">News &amp; Updates</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+      <a class="source-card" href="https://evindustry.ph/evcs-locations" target="_blank">
+        <div class="source-icon">⚡</div>
+        <div class="source-body">
+          <div class="source-name">DOE — EVCS Locations</div>
+          <div class="source-desc">Charging Station Map</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+      <a class="source-card" href="https://evindustry.ph/get-started" target="_blank">
+        <div class="source-icon">📖</div>
+        <div class="source-body">
+          <div class="source-name">DOE — Get Started with EVs</div>
+          <div class="source-desc">Beginner's Guide</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+      <a class="source-card" href="https://www.evap.com.ph/" target="_blank">
+        <div class="source-icon">🚗</div>
+        <div class="source-body">
+          <div class="source-name">EVAP</div>
+          <div class="source-desc">Electric Vehicle Association of the Philippines</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+    </div>
   </div>
 
   <footer>
     <div class="copy">
       Curated by <a href="https://evexplorerph.com" target="_blank">EV Explorer PH</a> &nbsp;·&nbsp;
-      Powered by Google News RSS &nbsp;·&nbsp; No tokens consumed
+      Sources: Google News RSS, DOE Philippines, EVAP
     </div>
   </footer>
 
 </div>
 <script>
 const FEEDS = [
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+Philippines+EV&hl=en-PH&gl=PH&ceid=PH:en"),
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EVIDA+law+Philippines+DOE+IEVAP&hl=en-PH&gl=PH&ceid=PH:en"),
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+EV+global+news+2025&hl=en&gl=US&ceid=US:en"),
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=new+electric+car+launch+unveil+2025&hl=en&gl=US&ceid=US:en"),
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+battery+technology+solid+state+LFP+NMC+2025&hl=en&gl=US&ceid=US:en"),
+  // PH EV general — current year priority
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
+  // DOE Philippines EV coverage
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=DOE+Philippines+electric+vehicle+charging&hl=en-PH&gl=PH&ceid=PH:en"),
+  // EVIDA / EVAP / policy
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EVIDA+EVAP+Philippines+EV+policy+2026&hl=en-PH&gl=PH&ceid=PH:en"),
+  // PH EV charging infrastructure
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+charging+station+Philippines+EVCS&hl=en-PH&gl=PH&ceid=PH:en"),
+  // Global EV news — current year
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+news+2026&hl=en&gl=US&ceid=US:en"),
+  // New EV model launches
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=new+electric+car+launch+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
+  // Battery technology
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+battery+technology+solid+state+2026&hl=en&gl=US&ceid=US:en"),
 ];
 
 const CAT_META = {
@@ -293,7 +358,7 @@ let allArticles = [], savedArticles = [], activeCat = "all";
 
 function categorize(title) {
   const t = title.toLowerCase();
-  if (/evida|doe ph|ievap|lto.*ev|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|incentive.*phil/.test(t)) return "policy";
+  if (/evida|evap|doe.*ev|ev.*doe|ievap|lto.*ev|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|incentive.*phil|ev.*incentive|charging.*station.*phil|evcs|evindustry/.test(t)) return "policy";
   if (/battery|solid.?state|lfp|nmc|lithium|cobalt|cathode|anode|energy density|gigafactory|cell tech|kwh|kilowatt/.test(t)) return "battery";
   if (/\bnew\b.*\b(model|ev|electric)\b|launch|unveil|debut|reveal|upcoming|arrives in ph|ph.*price|byd |mg |vinfast|wuling|geely|jetour|jaecoo|changan|kaiyi/.test(t)) return "model";
   if (/philipp|manila|luzon|visayas|mindanao|\bphl\b|pinoy|makati|cebu|quezon city|pasig|cavite|laguna|clark/.test(t)) return "ph";
@@ -416,7 +481,8 @@ function updateStats() {
   document.getElementById("s-policy").textContent  = a.filter(x => x.cat === "policy").length;
   document.getElementById("s-model").textContent   = a.filter(x => x.cat === "model").length;
   document.getElementById("s-battery").textContent = a.filter(x => x.cat === "battery").length;
-}
+// Auto-fetch on page load so content is always current
+window.addEventListener("load", () => loadNews());
 </script>
 </body>
 </html>
