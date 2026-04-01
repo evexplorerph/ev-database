@@ -12,22 +12,22 @@
     --navy-3: #141e35;
     --navy-4: #1a2540;
     --navy-5: #1f2d4e;
-    --cyan:       #00d4ff;
-    --cyan-dim:   rgba(0,212,255,0.12);
-    --cyan-mid:   rgba(0,212,255,0.25);
-    --green:      #00ff88;
-    --green-dim:  rgba(0,255,136,0.10);
-    --amber:      #ffb300;
-    --amber-dim:  rgba(255,179,0,0.12);
-    --purple:     #a78bfa;
-    --purple-dim: rgba(167,139,250,0.12);
-    --red:        #f87171;
-    --red-dim:    rgba(248,113,113,0.12);
+    --cyan:        #00d4ff;
+    --cyan-dim:    rgba(0,212,255,0.12);
+    --cyan-mid:    rgba(0,212,255,0.25);
+    --green:       #00ff88;
+    --green-dim:   rgba(0,255,136,0.10);
+    --amber:       #ffb300;
+    --amber-dim:   rgba(255,179,0,0.12);
+    --purple:      #a78bfa;
+    --purple-dim:  rgba(167,139,250,0.12);
+    --red:         #f87171;
+    --red-dim:     rgba(248,113,113,0.12);
     --text-primary:   #e8f0ff;
     --text-secondary: #8a9bc0;
     --text-muted:     #4a5a7a;
-    --border:        rgba(255,255,255,0.07);
-    --border-bright: rgba(0,212,255,0.25);
+    --border:         rgba(255,255,255,0.07);
+    --border-bright:  rgba(0,212,255,0.25);
     --radius:    10px;
     --radius-sm: 6px;
   }
@@ -53,40 +53,69 @@
     pointer-events: none; z-index: 0;
   }
 
-  .page { position: relative; z-index: 1; max-width: 1440px; margin: 0 auto; padding: 0 24px 60px; }
+  .page {
+    position: relative; z-index: 1;
+    max-width: 1440px; margin: 0 auto; padding: 0 24px 60px;
+  }
 
   /* ── TITLE ── */
   .title-section { padding-top: 36px; margin-bottom: 28px; }
-  .page-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
-  h1 { font-size: clamp(28px,4vw,44px); font-weight: 800; line-height: 1.1; color: var(--text-primary); letter-spacing: -0.5px; margin-bottom: 12px; }
+  .page-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+    line-height: 1.1; color: var(--text-primary);
+    letter-spacing: -0.5px; margin-bottom: 12px;
+  }
   h1 span { color: var(--cyan); }
-  .subtitle { font-size: 14px; color: var(--text-secondary); max-width: 640px; line-height: 1.7; }
+  .subtitle {
+    font-size: 14px; color: var(--text-secondary);
+    max-width: 640px; line-height: 1.7;
+  }
 
   /* ── STATS ── */
-  .stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; margin-top: 24px; }
-  .stat-card { background: var(--navy-3); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 22px; flex: 1; min-width: 110px; }
-  .stat-card.s-total  { border-top: 2px solid rgba(255,255,255,0.3); }
-  .stat-card.s-ph     { border-top: 2px solid var(--cyan); }
-  .stat-card.s-global { border-top: 2px solid var(--green); }
-  .stat-card.s-policy { border-top: 2px solid var(--amber); }
-  .stat-card.s-model  { border-top: 2px solid var(--purple); }
-  .stat-card.s-battery{ border-top: 2px solid var(--red); }
-  .stat-num { font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
-  .stat-card.s-total  .stat-num { color: var(--text-primary); }
-  .stat-card.s-ph     .stat-num { color: var(--cyan); }
-  .stat-card.s-global .stat-num { color: var(--green); }
-  .stat-card.s-policy .stat-num { color: var(--amber); }
-  .stat-card.s-model  .stat-num { color: var(--purple); }
-  .stat-card.s-battery .stat-num{ color: var(--red); }
-  .stat-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .stats-row {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-top: 24px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--navy-3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 22px;
+    flex: 1; min-width: 110px;
+  }
+  .stat-card.s-total   { border-top: 2px solid rgba(255,255,255,0.3); }
+  .stat-card.s-ph      { border-top: 2px solid var(--cyan); }
+  .stat-card.s-global  { border-top: 2px solid var(--green); }
+  .stat-card.s-policy  { border-top: 2px solid var(--amber); }
+  .stat-card.s-model   { border-top: 2px solid var(--purple); }
+  .stat-card.s-battery { border-top: 2px solid var(--red); }
+  .stat-num {
+    font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 4px;
+  }
+  .stat-card.s-total   .stat-num { color: var(--text-primary); }
+  .stat-card.s-ph      .stat-num { color: var(--cyan); }
+  .stat-card.s-global  .stat-num { color: var(--green); }
+  .stat-card.s-policy  .stat-num { color: var(--amber); }
+  .stat-card.s-model   .stat-num { color: var(--purple); }
+  .stat-card.s-battery .stat-num { color: var(--red); }
+  .stat-label {
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
 
   /* ── REFRESH ROW ── */
-  .refresh-row { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+  .refresh-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px; flex-wrap: wrap;
+  }
   .refresh-btn {
-    background: var(--cyan); color: var(--navy); border: none; border-radius: 100px;
-    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
-    padding: 8px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;
-    transition: opacity 0.2s; letter-spacing: 0.3px;
+    background: var(--cyan); color: var(--navy); border: none;
+    border-radius: 100px; font-family: 'Poppins', sans-serif;
+    font-size: 12px; font-weight: 700; padding: 8px 20px;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    transition: opacity 0.2s; letter-spacing: 0.3px; white-space: nowrap;
   }
   .refresh-btn:hover { opacity: 0.85; }
   .refresh-btn:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -97,29 +126,63 @@
   .result-count { margin-left: auto; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
   .result-count strong { color: var(--cyan); }
 
-  /* ── TOGGLES ── */
+  /* ── KEY SOURCES ── */
+  .key-sources { margin-bottom: 24px; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+  }
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .source-card {
+    background: var(--navy-3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .source-card:hover { background: var(--navy-4); border-color: var(--border-bright); }
+  .source-icon { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; }
+  .source-body { flex: 1; min-width: 0; }
+  .source-name {
+    font-size: 12px; font-weight: 600; color: var(--text-primary);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .source-desc { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .source-arrow { font-size: 13px; color: var(--cyan); opacity: 0.6; flex-shrink: 0; }
+  .source-card:hover .source-arrow { opacity: 1; }
+
+  /* ── CATEGORY TOGGLES ── */
   .cat-toggles { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
   .toggle-btn {
-    background: var(--navy-3); border: 1px solid var(--border); border-radius: 100px;
-    color: var(--text-secondary); font-family: 'Poppins', sans-serif;
-    font-size: 12px; font-weight: 500; padding: 6px 16px;
-    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+    background: var(--navy-3); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--text-secondary);
+    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 6px 16px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
   }
   .toggle-btn .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .toggle-btn:hover { border-color: var(--border-bright); color: var(--text-primary); }
-  .toggle-btn.active.t-all    { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); color: var(--text-primary); }
-  .toggle-btn.active.t-ph     { background: var(--cyan-dim);   border-color: var(--cyan);   color: var(--cyan); }
-  .toggle-btn.active.t-global { background: var(--green-dim);  border-color: var(--green);  color: var(--green); }
-  .toggle-btn.active.t-policy { background: var(--amber-dim);  border-color: var(--amber);  color: var(--amber); }
-  .toggle-btn.active.t-model  { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
-  .toggle-btn.active.t-battery{ background: var(--red-dim);    border-color: var(--red);    color: var(--red); }
+  .toggle-btn.active.t-all     { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.2); color: var(--text-primary); }
+  .toggle-btn.active.t-ph      { background: var(--cyan-dim);   border-color: var(--cyan);   color: var(--cyan); }
+  .toggle-btn.active.t-global  { background: var(--green-dim);  border-color: var(--green);  color: var(--green); }
+  .toggle-btn.active.t-policy  { background: var(--amber-dim);  border-color: var(--amber);  color: var(--amber); }
+  .toggle-btn.active.t-model   { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+  .toggle-btn.active.t-battery { background: var(--red-dim);    border-color: var(--red);    color: var(--red); }
 
-  /* ── GRID ── */
-  .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 16px; }
+  /* ── NEWS GRID ── */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
 
-  /* ── FEATURED ── */
+  /* ── FEATURED CARD ── */
   .card-featured {
-    grid-column: 1/-1; background: var(--navy-2);
+    grid-column: 1 / -1; background: var(--navy-2);
     border: 1px solid var(--border-bright); border-radius: var(--radius);
     padding: 24px 28px; display: flex; gap: 24px; align-items: flex-start;
     cursor: pointer; transition: border-color 0.2s, background 0.2s;
@@ -128,12 +191,15 @@
   .feat-icon {
     width: 72px; height: 72px; flex-shrink: 0;
     background: var(--cyan-dim); border: 1px solid var(--border-bright);
-    border-radius: var(--radius); display: flex; align-items: center;
-    justify-content: center; font-size: 30px;
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
   }
-  .feat-body { flex: 1; }
-  .feat-body h2 { font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1.35; margin: 10px 0; }
-  .feat-body p  { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .feat-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .feat-body h2 {
+    font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1.35;
+  }
+  .feat-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
 
   /* ── REGULAR CARD ── */
   .card {
@@ -146,78 +212,77 @@
   .card h3 { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.4; }
   .card p  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; flex: 1; }
 
-  /* ── META + BADGES ── */
-  .card-meta  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .card-footer{ display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--border); }
+  /* ── BADGES & META ── */
+  .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--border);
+  }
   .badge {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
     padding: 3px 10px; border-radius: 100px; white-space: nowrap;
   }
   .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-  .badge-ph     { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid rgba(0,212,255,0.2); }
-  .badge-ph::before     { background: var(--cyan); }
-  .badge-global { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(0,255,136,0.2); }
-  .badge-global::before { background: var(--green); }
-  .badge-policy { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(255,179,0,0.2); }
-  .badge-policy::before { background: var(--amber); }
-  .badge-model  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
-  .badge-model::before  { background: var(--purple); }
-  .badge-battery{ background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
-  .badge-battery::before{ background: var(--red); }
-  .badge-top    { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(255,179,0,0.25); }
-  .badge-top::before { background: var(--amber); }
+  .badge-ph      { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid rgba(0,212,255,0.2); }
+  .badge-ph::before      { background: var(--cyan); }
+  .badge-global  { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(0,255,136,0.2); }
+  .badge-global::before  { background: var(--green); }
+  .badge-policy  { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(255,179,0,0.2); }
+  .badge-policy::before  { background: var(--amber); }
+  .badge-model   { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+  .badge-model::before   { background: var(--purple); }
+  .badge-battery { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
+  .badge-battery::before { background: var(--red); }
+  .badge-top     { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(255,179,0,0.25); }
+  .badge-top::before     { background: var(--amber); }
 
   .card-date   { font-size: 11px; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
   .card-source { font-size: 11px; color: var(--text-muted); font-weight: 500; }
   .read-more {
     font-size: 12px; font-weight: 600; color: var(--cyan);
-    text-decoration: none; transition: opacity 0.2s;
-    display: inline-flex; align-items: center; gap: 4px;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+    transition: opacity 0.2s;
   }
   .read-more:hover { opacity: 0.7; }
 
-  /* ── STATES ── */
-  .state-box { grid-column: 1/-1; text-align: center; padding: 64px 20px; color: var(--text-muted); }
+  /* ── STATE BOXES ── */
+  .state-box {
+    grid-column: 1 / -1; text-align: center;
+    padding: 64px 20px; color: var(--text-muted);
+  }
   .state-box .icon { font-size: 40px; margin-bottom: 14px; }
-  .state-box h3 { font-size: 16px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-  .state-box p  { font-size: 13px; max-width: 360px; margin: 0 auto; line-height: 1.7; }
+  .state-box h3 {
+    font-size: 16px; font-weight: 600;
+    color: var(--text-secondary); margin-bottom: 6px;
+  }
+  .state-box p { font-size: 13px; max-width: 360px; margin: 0 auto; line-height: 1.7; }
   .spinner {
-    width: 36px; height: 36px; border: 3px solid var(--navy-4);
-    border-top-color: var(--cyan); border-radius: 50%;
-    animation: spin 0.7s linear infinite; margin: 0 auto 16px;
+    width: 36px; height: 36px;
+    border: 3px solid var(--navy-4); border-top-color: var(--cyan);
+    border-radius: 50%; animation: spin 0.7s linear infinite;
+    margin: 0 auto 16px;
   }
 
   /* ── FOOTER NOTE ── */
   .footer-note {
     margin-top: 24px; padding: 16px 20px;
     background: var(--navy-3); border: 1px solid var(--border);
-    border-radius: var(--radius); font-size: 12px; color: var(--text-muted); line-height: 1.7;
+    border-radius: var(--radius); font-size: 12px;
+    color: var(--text-muted); line-height: 1.7;
   }
   .footer-note strong { color: var(--text-secondary); }
 
   /* ── FOOTER ── */
-  footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  footer {
+    margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
   footer .copy { font-size: 12px; color: var(--text-muted); }
   footer .copy a { color: var(--cyan); text-decoration: none; }
   footer .copy a:hover { text-decoration: underline; }
-
-  /* ── KEY SOURCES ── */
-  .key-sources { margin-top: 32px; }
-  .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 12px; }
-  .source-card {
-    background: var(--navy-3); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 14px 16px;
-    display: flex; align-items: center; gap: 12px;
-    text-decoration: none; transition: border-color 0.2s, background 0.2s;
-  }
-  .source-card:hover { background: var(--navy-4); border-color: var(--border-bright); }
-  .source-icon { font-size: 20px; flex-shrink: 0; width: 36px; text-align: center; }
-  .source-body { flex: 1; }
-  .source-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-  .source-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-  .source-arrow { font-size: 14px; color: var(--cyan); opacity: 0.7; flex-shrink: 0; }
-  .source-card:hover .source-arrow { opacity: 1; }
 
   @media (max-width: 640px) {
     .page { padding: 0 16px 48px; }
@@ -233,12 +298,14 @@
 <body>
 <div class="page">
 
+  <!-- TITLE -->
   <div class="title-section">
     <p class="page-label">Live Feed</p>
     <h1>EV <span>News</span> Hub</h1>
     <p class="subtitle">Auto-fetched headlines on Philippine EV news, global updates, EVIDA policy, new model launches, and battery technology — curated for Filipino readers.</p>
   </div>
 
+  <!-- STATS -->
   <div class="stats-row">
     <div class="stat-card s-total">  <div class="stat-num" id="s-total">—</div>  <div class="stat-label">Total Articles</div></div>
     <div class="stat-card s-ph">     <div class="stat-num" id="s-ph">—</div>     <div class="stat-label">EV News PH</div></div>
@@ -248,6 +315,7 @@
     <div class="stat-card s-battery"><div class="stat-num" id="s-battery">—</div><div class="stat-label">Battery Tech</div></div>
   </div>
 
+  <!-- REFRESH ROW -->
   <div class="refresh-row">
     <button class="refresh-btn" id="rfBtn" onclick="loadNews()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -256,44 +324,23 @@
       </svg>
       Refresh News
     </button>
-    <span class="last-updated" id="lastUpdated">Not yet loaded — click Refresh to fetch headlines</span>
+    <span class="last-updated" id="lastUpdated">Loading latest headlines…</span>
     <span class="result-count" id="resultCount"></span>
   </div>
 
-  <div class="cat-toggles">
-    <button class="toggle-btn active t-all"     data-cat="all"     onclick="setCat(this)">All</button>
-    <button class="toggle-btn t-ph"             data-cat="ph"      onclick="setCat(this)"><span class="dot" style="background:var(--cyan)"></span> EV News PH</button>
-    <button class="toggle-btn t-global"         data-cat="global"  onclick="setCat(this)"><span class="dot" style="background:var(--green)"></span> EV News Global</button>
-    <button class="toggle-btn t-policy"         data-cat="policy"  onclick="setCat(this)"><span class="dot" style="background:var(--amber)"></span> Policy / EVIDA / DOE</button>
-    <button class="toggle-btn t-model"          data-cat="model"   onclick="setCat(this)"><span class="dot" style="background:var(--purple)"></span> New / Upcoming Models</button>
-    <button class="toggle-btn t-battery"        data-cat="battery" onclick="setCat(this)"><span class="dot" style="background:var(--red)"></span> EV Battery Tech</button>
-  </div>
-
-  <div class="news-grid" id="newsGrid">
-    <div class="state-box">
-      <div class="icon">⚡</div>
-      <h3>Ready to load</h3>
-      <p>Click <strong>Refresh News</strong> to fetch the latest EV headlines from Google News. Free — no API tokens used.</p>
-    </div>
-  </div>
-
-  <div class="footer-note">
-    <strong>About this feed:</strong>
-    Headlines are pulled live from Google News RSS and auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime using the Refresh button. Previously fetched articles are retained across visits (up to 80 articles). Click any card to read the full article from the original source.
-  </div>
-
+  <!-- KEY PHILIPPINE EV SOURCES -->
   <div class="key-sources">
-    <p class="page-label" style="margin-bottom:14px;">Key Philippine EV Sources</p>
+    <p class="section-label">Key Philippine EV Sources</p>
     <div class="sources-grid">
-      <a class="source-card" href="https://evindustry.ph/news-and-update" target="_blank">
+      <a class="source-card" href="https://evindustry.ph/news-and-update" target="_blank" rel="noopener">
         <div class="source-icon">🏛️</div>
         <div class="source-body">
-          <div class="source-name">DOE — EV Industry PH</div>
-          <div class="source-desc">News &amp; Updates</div>
+          <div class="source-name">DOE — News &amp; Updates</div>
+          <div class="source-desc">evindustry.ph</div>
         </div>
         <div class="source-arrow">↗</div>
       </a>
-      <a class="source-card" href="https://evindustry.ph/evcs-locations" target="_blank">
+      <a class="source-card" href="https://evindustry.ph/evcs-locations" target="_blank" rel="noopener">
         <div class="source-icon">⚡</div>
         <div class="source-body">
           <div class="source-name">DOE — EVCS Locations</div>
@@ -301,7 +348,7 @@
         </div>
         <div class="source-arrow">↗</div>
       </a>
-      <a class="source-card" href="https://evindustry.ph/get-started" target="_blank">
+      <a class="source-card" href="https://evindustry.ph/get-started" target="_blank" rel="noopener">
         <div class="source-icon">📖</div>
         <div class="source-body">
           <div class="source-name">DOE — Get Started with EVs</div>
@@ -309,63 +356,106 @@
         </div>
         <div class="source-arrow">↗</div>
       </a>
-      <a class="source-card" href="https://www.evap.com.ph/" target="_blank">
+      <a class="source-card" href="https://www.evap.com.ph/" target="_blank" rel="noopener">
         <div class="source-icon">🚗</div>
         <div class="source-body">
           <div class="source-name">EVAP</div>
-          <div class="source-desc">Electric Vehicle Association of the Philippines</div>
+          <div class="source-desc">Electric Vehicle Assoc. of the PH</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+      <a class="source-card" href="https://lto.gov.ph/" target="_blank" rel="noopener">
+        <div class="source-icon">🪪</div>
+        <div class="source-body">
+          <div class="source-name">LTO — Official Website</div>
+          <div class="source-desc">Land Transportation Office</div>
+        </div>
+        <div class="source-arrow">↗</div>
+      </a>
+      <a class="source-card" href="https://lto.gov.ph/wp-content/uploads/2023/09/AO_2021-039.pdf" target="_blank" rel="noopener">
+        <div class="source-icon">📄</div>
+        <div class="source-body">
+          <div class="source-name">LTO — EV Circular (AO 2021-039)</div>
+          <div class="source-desc">Official Administrative Order PDF</div>
         </div>
         <div class="source-arrow">↗</div>
       </a>
     </div>
   </div>
 
+  <!-- CATEGORY TOGGLES -->
+  <div class="cat-toggles">
+    <button class="toggle-btn active t-all"     data-cat="all"     onclick="setCat(this)">All</button>
+    <button class="toggle-btn t-ph"             data-cat="ph"      onclick="setCat(this)"><span class="dot" style="background:var(--cyan)"></span>EV News PH</button>
+    <button class="toggle-btn t-global"         data-cat="global"  onclick="setCat(this)"><span class="dot" style="background:var(--green)"></span>EV News Global</button>
+    <button class="toggle-btn t-policy"         data-cat="policy"  onclick="setCat(this)"><span class="dot" style="background:var(--amber)"></span>Policy / EVIDA / DOE</button>
+    <button class="toggle-btn t-model"          data-cat="model"   onclick="setCat(this)"><span class="dot" style="background:var(--purple)"></span>New / Upcoming Models</button>
+    <button class="toggle-btn t-battery"        data-cat="battery" onclick="setCat(this)"><span class="dot" style="background:var(--red)"></span>EV Battery Tech</button>
+  </div>
+
+  <!-- NEWS GRID -->
+  <div class="news-grid" id="newsGrid">
+    <div class="state-box">
+      <div class="spinner"></div>
+      <h3>Fetching latest EV news…</h3>
+      <p>Pulling from multiple Philippine and global EV sources. This takes a few seconds.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="footer-note">
+    <strong>About this feed:</strong>
+    Headlines are pulled live from Google News RSS and auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime. Previously fetched articles are retained across visits (up to 80 articles). Click any card or "Read more" to open the full article from the original source.
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <div class="copy">
-      Curated by <a href="https://evexplorerph.com" target="_blank">EV Explorer PH</a> &nbsp;·&nbsp;
-      Sources: Google News RSS, DOE Philippines, EVAP
+      Curated by <a href="https://evexplorerph.com" target="_blank" rel="noopener">EV Explorer PH</a>
+      &nbsp;·&nbsp; Sources: Google News, DOE Philippines, EVAP, LTO
     </div>
   </footer>
 
 </div>
+
 <script>
+// ── FEEDS ──
 const FEEDS = [
-  // PH EV general — current year priority
+  // PH EV — general, current year
   "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // DOE Philippines EV coverage
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=DOE+Philippines+electric+vehicle+charging&hl=en-PH&gl=PH&ceid=PH:en"),
-  // EVIDA / EVAP / policy
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EVIDA+EVAP+Philippines+EV+policy+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // PH EV charging infrastructure
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+charging+station+Philippines+EVCS&hl=en-PH&gl=PH&ceid=PH:en"),
-  // Global EV news — current year
+  // DOE PH EV
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=DOE+Philippines+electric+vehicle+charging+2026&hl=en-PH&gl=PH&ceid=PH:en"),
+  // EVIDA / EVAP / LTO / policy
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EVIDA+EVAP+LTO+Philippines+EV+policy&hl=en-PH&gl=PH&ceid=PH:en"),
+  // PH charging infrastructure
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+charging+station+Philippines+EVCS+2026&hl=en-PH&gl=PH&ceid=PH:en"),
+  // Global EV — current year
   "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+news+2026&hl=en&gl=US&ceid=US:en"),
-  // New EV model launches
+  // New model launches PH
   "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=new+electric+car+launch+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
   // Battery technology
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+battery+technology+solid+state+2026&hl=en&gl=US&ceid=US:en"),
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+battery+technology+solid+state+LFP+2026&hl=en&gl=US&ceid=US:en"),
 ];
 
+// ── CATEGORY CONFIG ──
 const CAT_META = {
   ph:      { label: "EV News PH",           icon: "🇵🇭" },
-  global:  { label: "EV News Global",       icon: "🌐" },
-  policy:  { label: "Policy / EVIDA / DOE", icon: "📋" },
-  model:   { label: "New / Upcoming Model", icon: "🚘" },
-  battery: { label: "Battery Tech",         icon: "🔋" },
+  global:  { label: "EV News Global",       icon: "🌐"  },
+  policy:  { label: "Policy / EVIDA / DOE", icon: "📋"  },
+  model:   { label: "New / Upcoming Model", icon: "🚘"  },
+  battery: { label: "Battery Tech",         icon: "🔋"  },
 };
 
-let allArticles = [], savedArticles = [], activeCat = "all";
+let allArticles  = [];
+let savedArticles = [];
+let activeCat    = "all";
 
-function categorize(title) {
-  const t = title.toLowerCase();
-  if (/evida|evap|doe.*ev|ev.*doe|ievap|lto.*ev|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|incentive.*phil|ev.*incentive|charging.*station.*phil|evcs|evindustry/.test(t)) return "policy";
-  if (/battery|solid.?state|lfp|nmc|lithium|cobalt|cathode|anode|energy density|gigafactory|cell tech|kwh|kilowatt/.test(t)) return "battery";
-  if (/\bnew\b.*\b(model|ev|electric)\b|launch|unveil|debut|reveal|upcoming|arrives in ph|ph.*price|byd |mg |vinfast|wuling|geely|jetour|jaecoo|changan|kaiyi/.test(t)) return "model";
-  if (/philipp|manila|luzon|visayas|mindanao|\bphl\b|pinoy|makati|cebu|quezon city|pasig|cavite|laguna|clark/.test(t)) return "ph";
-  return "global";
+// ── HELPERS ──
+function stripHtml(h) {
+  const d = document.createElement("div");
+  d.innerHTML = h;
+  return d.textContent || "";
 }
-
-function stripHtml(h) { const d = document.createElement("div"); d.innerHTML = h; return d.textContent || ""; }
 
 function fmtDate(s) {
   if (!s) return "";
@@ -373,54 +463,93 @@ function fmtDate(s) {
   return isNaN(d) ? "" : d.toLocaleDateString("en-PH", { month: "short", day: "numeric", year: "numeric" });
 }
 
+function categorize(title) {
+  const t = title.toLowerCase();
+  if (/evida|evap|\blto\b.*ev|ev.*\blto\b|doe.*ev|ev.*doe|ievap|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|incentive.*phil|ev.*incentive|charging.*station.*phil|evcs|evindustry/.test(t)) return "policy";
+  if (/battery|solid.?state|\blfp\b|\bnmc\b|lithium.ion|cobalt|cathode|anode|energy density|gigafactory|cell tech|\bkwh\b|kilowatt/.test(t)) return "battery";
+  if (/new.*electric.*car|new.*ev\b|launch|unveil|debut|reveal|upcoming|arrives.*ph|ph.*price|\bbyd\b|\bmg\b|vinfast|wuling|geely|jetour|jaecoo|changan|kaiyi/.test(t)) return "model";
+  if (/philipp|manila|luzon|visayas|mindanao|\bphl\b|pinoy|makati|cebu|quezon.city|pasig|cavite|laguna|clark/.test(t)) return "ph";
+  return "global";
+}
+
+// ── LOAD NEWS ──
 async function loadNews() {
   const btn = document.getElementById("rfBtn");
-  btn.disabled = true; btn.classList.add("spinning");
-  document.getElementById("newsGrid").innerHTML = `<div class="state-box"><div class="spinner"></div><h3>Fetching latest EV news…</h3><p>Pulling from Google News RSS. This takes a few seconds.</p></div>`;
+  btn.disabled = true;
+  btn.classList.add("spinning");
+  document.getElementById("newsGrid").innerHTML = `
+    <div class="state-box">
+      <div class="spinner"></div>
+      <h3>Fetching latest EV news…</h3>
+      <p>Pulling from multiple Philippine and global EV sources.</p>
+    </div>`;
 
   try {
-    const results = await Promise.allSettled(FEEDS.map(f => fetch(f).then(r => r.json())));
-    const seen = new Set(savedArticles.map(a => a.title));
+    const results = await Promise.allSettled(
+      FEEDS.map(url => fetch(url).then(r => r.json()))
+    );
+
+    const seen     = new Set(savedArticles.map(a => a.title));
     const newItems = [];
 
     results.forEach(r => {
-      if (r.status !== "fulfilled" || !r.value.items) return;
+      if (r.status !== "fulfilled" || !Array.isArray(r.value.items)) return;
       r.value.items.slice(0, 10).forEach(item => {
         const title = stripHtml(item.title || "").trim();
         if (!title || seen.has(title)) return;
         seen.add(title);
-        const cat = categorize(title);
-        const raw = stripHtml(item.description || item.content || "").trim();
-        const summary = raw.length > 200 ? raw.slice(0, 197) + "…" : raw || "No preview available.";
+
+        const cat     = categorize(title);
+        const rawDesc = stripHtml(item.description || item.content || "").trim();
+        const summary = rawDesc.length > 200 ? rawDesc.slice(0, 197) + "…" : (rawDesc || "Click to read the full article.");
+
         let source = "News";
-        try { source = item.source || new URL(item.link).hostname.replace("www.", ""); } catch(e) {}
+        try {
+          source = item.source || new URL(item.link).hostname.replace("www.", "");
+        } catch (_) {}
+
         newItems.push({
-          title, summary, source,
-          sourceUrl: item.link || "#",
-          date: fmtDate(item.pubDate),
-          ts: item.pubDate ? new Date(item.pubDate).getTime() : 0,
-          cat, icon: CAT_META[cat]?.icon || "⚡"
+          title,
+          summary,
+          source,
+          sourceUrl : item.link || "#",
+          date      : fmtDate(item.pubDate),
+          ts        : item.pubDate ? new Date(item.pubDate).getTime() : 0,
+          cat,
+          icon      : CAT_META[cat]?.icon || "⚡",
         });
       });
     });
 
+    // Merge new + old, deduplicate, sort newest first, cap at 80
     savedArticles = [...newItems, ...savedArticles]
       .filter((a, i, arr) => arr.findIndex(b => b.title === a.title) === i)
       .sort((a, b) => b.ts - a.ts)
       .slice(0, 80);
 
     allArticles = savedArticles;
-    renderGrid(); updateStats();
+    renderGrid();
+    updateStats();
 
     const now = new Date().toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit" });
-    document.getElementById("lastUpdated").innerHTML = `Last updated: <strong>${now}</strong> &nbsp;·&nbsp; ${newItems.length} new article${newItems.length !== 1 ? "s" : ""} fetched`;
+    document.getElementById("lastUpdated").innerHTML =
+      `Last updated: <strong>${now}</strong>&nbsp;&nbsp;·&nbsp;&nbsp;${newItems.length} new article${newItems.length !== 1 ? "s" : ""} fetched`;
 
-  } catch(e) {
-    document.getElementById("newsGrid").innerHTML = `<div class="state-box"><div class="icon">⚠️</div><h3>Couldn't load news</h3><p>${e.message || "Network error. Please try again."}</p></div>`;
+  } catch (err) {
+    document.getElementById("newsGrid").innerHTML = `
+      <div class="state-box">
+        <div class="icon">⚠️</div>
+        <h3>Couldn't load news</h3>
+        <p>${err.message || "Network error. Please try again."}</p>
+      </div>`;
+    document.getElementById("lastUpdated").textContent = "Failed to load — click Refresh to try again";
   }
-  btn.disabled = false; btn.classList.remove("spinning");
+
+  btn.disabled = false;
+  btn.classList.remove("spinning");
 }
 
+// ── FILTER ──
 function setCat(btn) {
   activeCat = btn.dataset.cat;
   document.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("active"));
@@ -428,51 +557,68 @@ function setCat(btn) {
   if (allArticles.length) renderGrid();
 }
 
+// ── RENDER GRID ──
 function renderGrid() {
   const grid = document.getElementById("newsGrid");
-  const list = activeCat === "all" ? allArticles : allArticles.filter(a => a.cat === activeCat);
-  document.getElementById("resultCount").innerHTML = list.length ? `<strong>${list.length}</strong> article${list.length !== 1 ? "s" : ""}` : "";
+  const list = activeCat === "all"
+    ? allArticles
+    : allArticles.filter(a => a.cat === activeCat);
+
+  document.getElementById("resultCount").innerHTML = list.length
+    ? `<strong>${list.length}</strong> article${list.length !== 1 ? "s" : ""}`
+    : "";
 
   if (!list.length) {
-    grid.innerHTML = `<div class="state-box"><div class="icon">🔍</div><h3>No articles in this category</h3><p>Try a different filter or click Refresh News to load more headlines.</p></div>`;
+    grid.innerHTML = `
+      <div class="state-box">
+        <div class="icon">🔍</div>
+        <h3>No articles in this category</h3>
+        <p>Try a different filter or click Refresh News to load more headlines.</p>
+      </div>`;
     return;
   }
 
-  const arrowSvg = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`;
+  const arrow = `<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`;
 
   grid.innerHTML = list.map((a, i) => {
-    const m = CAT_META[a.cat] || CAT_META.global;
+    const m        = CAT_META[a.cat] || CAT_META.global;
+    const safeUrl  = a.sourceUrl.replace(/'/g, "\\'");
     const dateHtml = a.date ? `<span class="card-date">${a.date}</span>` : "";
-    const footer = `<span class="card-source">📰 ${a.source}</span><a class="read-more" href="${a.sourceUrl}" target="_blank" onclick="event.stopPropagation()">Read more ${arrowSvg}</a>`;
+    const cardFooter = `
+      <span class="card-source">📰 ${a.source}</span>
+      <a class="read-more" href="${a.sourceUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Read more ${arrow}</a>`;
 
-    if (i === 0) return `
-      <div class="card-featured" onclick="window.open('${a.sourceUrl}','_blank')">
-        <div class="feat-icon">${a.icon}</div>
-        <div class="feat-body">
-          <div class="card-meta">
-            <span class="badge badge-${a.cat}">${m.label}</span>
-            <span class="badge badge-top">★ Top Story</span>
-            ${dateHtml}
+    if (i === 0) {
+      return `
+        <div class="card-featured" onclick="window.open('${safeUrl}','_blank')">
+          <div class="feat-icon">${a.icon}</div>
+          <div class="feat-body">
+            <div class="card-meta">
+              <span class="badge badge-${a.cat}">${m.label}</span>
+              <span class="badge badge-top">★ Top Story</span>
+              ${dateHtml}
+            </div>
+            <h2>${a.title}</h2>
+            <p>${a.summary}</p>
+            <div class="card-footer">${cardFooter}</div>
           </div>
-          <h2>${a.title}</h2>
-          <p>${a.summary}</p>
-          <div class="card-footer">${footer}</div>
-        </div>
-      </div>`;
+        </div>`;
+    }
 
     return `
-      <div class="card" onclick="window.open('${a.sourceUrl}','_blank')">
+      <div class="card" onclick="window.open('${safeUrl}','_blank')">
         <div class="card-meta">
           <span class="badge badge-${a.cat}">${m.label}</span>
           ${dateHtml}
         </div>
         <h3>${a.icon} ${a.title}</h3>
         <p>${a.summary}</p>
-        <div class="card-footer">${footer}</div>
+        <div class="card-footer">${cardFooter}</div>
       </div>`;
   }).join("");
 }
 
+// ── UPDATE STAT COUNTERS ──
 function updateStats() {
   const a = allArticles;
   document.getElementById("s-total").textContent   = a.length;
@@ -481,8 +627,10 @@ function updateStats() {
   document.getElementById("s-policy").textContent  = a.filter(x => x.cat === "policy").length;
   document.getElementById("s-model").textContent   = a.filter(x => x.cat === "model").length;
   document.getElementById("s-battery").textContent = a.filter(x => x.cat === "battery").length;
-// Auto-fetch on page load so content is always current
-window.addEventListener("load", () => loadNews());
+}
+
+// ── AUTO-LOAD ON PAGE OPEN ──
+window.addEventListener("load", loadNews);
 </script>
 </body>
 </html>
