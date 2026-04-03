@@ -405,14 +405,14 @@
   <!-- FOOTER NOTE -->
   <div class="footer-note">
     <strong>About this feed:</strong>
-    Headlines are pulled live from Google News RSS and auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime. Previously fetched articles are retained across visits (up to 80 articles). Click any card or "Read more" to open the full article from the original source.
+    Headlines are pulled live from Philippine publishers (AutoIndustriya, CarGuide PH, Zigwheels PH, AutoDeal, Top Gear PH, Philstar, Rappler, CNN PH, Inquirer, BusinessWorld, Manila Bulletin) and global EV specialists (Electrek, InsideEVs, CleanTechnica) — all auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime. Previously fetched articles are retained across visits (up to 100 articles). Click any card or "Read more" to open the full article from the original source.
   </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="copy">
       Curated by <a href="https://evexplorerph.com" target="_blank" rel="noopener">EV Explorer PH</a>
-      &nbsp;·&nbsp; Sources: Google News, DOE Philippines, EVAP, LTO
+      &nbsp;·&nbsp; Sources: AutoIndustriya, CarGuide PH, Zigwheels PH, AutoDeal, Top Gear PH, Electrek, InsideEVs, CleanTechnica, Philstar, Rappler, CNN PH, Inquirer, BusinessWorld, Manila Bulletin &amp; more
     </div>
   </footer>
 
@@ -420,21 +420,50 @@
 
 <script>
 // ── FEEDS ──
+// Google News (PH-targeted) — pulls from Philstar, Rappler, CNN PH, etc.
+const GNEWS = (q, lang="en-PH", gl="PH", ceid="PH:en") =>
+  "https://api.rss2json.com/v1/api.json?rss_url=" +
+  encodeURIComponent(`https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=${lang}&gl=${gl}&ceid=${ceid}`);
+
+// Direct RSS — PH automotive / EV publishers
+const DIRECT = url =>
+  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(url);
+
 const FEEDS = [
-  // PH EV — general, current year
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // DOE PH EV
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=DOE+Philippines+electric+vehicle+charging+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // EVIDA / EVAP / LTO / policy
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EVIDA+EVAP+LTO+Philippines+EV+policy&hl=en-PH&gl=PH&ceid=PH:en"),
-  // PH charging infrastructure
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+charging+station+Philippines+EVCS+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // Global EV — current year
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=electric+vehicle+news+2026&hl=en&gl=US&ceid=US:en"),
-  // New model launches PH
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=new+electric+car+launch+Philippines+2026&hl=en-PH&gl=PH&ceid=PH:en"),
-  // Battery technology
-  "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://news.google.com/rss/search?q=EV+battery+technology+solid+state+LFP+2026&hl=en&gl=US&ceid=US:en"),
+  // ── PHILIPPINE SOURCES (Google News targeted) ──
+  GNEWS("electric vehicle Philippines 2026"),
+  GNEWS("DOE Philippines electric vehicle charging 2026"),
+  GNEWS("EVIDA EVAP LTO Philippines EV policy 2026"),
+  GNEWS("EV charging station Philippines EVCS 2026"),
+  GNEWS("new electric car Philippines launch 2026"),
+  GNEWS("AutoIndustriya electric vehicle Philippines"),
+  GNEWS("CarGuide Philippines electric vehicle"),
+  GNEWS("Zigwheels Philippines electric vehicle"),
+  GNEWS("Philstar electric vehicle Philippines"),
+  GNEWS("Rappler electric vehicle Philippines"),
+  GNEWS("CNN Philippines electric vehicle"),
+  GNEWS("BusinessWorld Philippines electric vehicle"),
+  GNEWS("Inquirer.net electric vehicle Philippines"),
+  GNEWS("Manila Bulletin electric vehicle"),
+
+  // ── DIRECT RSS — PH Automotive Publishers ──
+  DIRECT("https://www.autoindustriya.com/feed"),           // AutoIndustriya
+  DIRECT("https://carguide.ph/feed"),                      // CarGuide PH
+  DIRECT("https://www.zigwheels.ph/rss/news"),             // Zigwheels PH
+  DIRECT("https://autodeal.com.ph/articles/rss"),          // AutoDeal PH
+  DIRECT("https://www.topgear.com.ph/rss"),                // Top Gear PH
+
+  // ── GLOBAL EV SPECIALISTS (Direct RSS) ──
+  DIRECT("https://electrek.co/feed"),                      // Electrek
+  DIRECT("https://insideevs.com/rss/articles/all/"),       // InsideEVs
+  DIRECT("https://cleantechnica.com/feed/"),               // CleanTechnica
+  DIRECT("https://www.motortrend.com/feed/"),              // MotorTrend (EV coverage)
+  DIRECT("https://www.caranddriver.com/rss/all.xml/"),     // Car and Driver
+
+  // ── GLOBAL EV — Google News ──
+  GNEWS("electric vehicle news 2026", "en", "US", "US:en"),
+  GNEWS("EV battery technology solid state LFP 2026", "en", "US", "US:en"),
+  GNEWS("new electric car launch unveil 2026", "en", "US", "US:en"),
 ];
 
 // ── CATEGORY CONFIG ──
@@ -503,9 +532,30 @@ async function loadNews() {
         const rawDesc = stripHtml(item.description || item.content || "").trim();
         const summary = rawDesc.length > 200 ? rawDesc.slice(0, 197) + "…" : (rawDesc || "Click to read the full article.");
 
+        // Friendly source name mapping
+        const DOMAIN_NAMES = {
+          "autoindustriya.com":  "AutoIndustriya",
+          "carguide.ph":         "CarGuide PH",
+          "zigwheels.ph":        "Zigwheels PH",
+          "autodeal.com.ph":     "AutoDeal PH",
+          "topgear.com.ph":      "Top Gear PH",
+          "electrek.co":         "Electrek",
+          "insideevs.com":       "InsideEVs",
+          "cleantechnica.com":   "CleanTechnica",
+          "motortrend.com":      "MotorTrend",
+          "caranddriver.com":    "Car and Driver",
+          "philstar.com":        "Philstar",
+          "rappler.com":         "Rappler",
+          "cnnphilippines.com":  "CNN Philippines",
+          "businessworld.com.ph":"BusinessWorld",
+          "inquirer.net":        "Philippine Daily Inquirer",
+          "mb.com.ph":           "Manila Bulletin",
+          "news.google.com":     "Google News",
+        };
         let source = "News";
         try {
-          source = item.source || new URL(item.link).hostname.replace("www.", "");
+          const hostname = new URL(item.link).hostname.replace("www.", "");
+          source = item.source || DOMAIN_NAMES[hostname] || hostname;
         } catch (_) {}
 
         newItems.push({
@@ -521,11 +571,11 @@ async function loadNews() {
       });
     });
 
-    // Merge new + old, deduplicate, sort newest first, cap at 80
+    // Merge new + old, deduplicate, sort newest first, cap at 100
     savedArticles = [...newItems, ...savedArticles]
       .filter((a, i, arr) => arr.findIndex(b => b.title === a.title) === i)
       .sort((a, b) => b.ts - a.ts)
-      .slice(0, 80);
+      .slice(0, 100);
 
     allArticles = savedArticles;
     renderGrid();
