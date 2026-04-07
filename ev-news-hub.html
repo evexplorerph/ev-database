@@ -405,7 +405,7 @@
   <!-- FOOTER NOTE -->
   <div class="footer-note">
     <strong>About this feed:</strong>
-    Headlines are pulled live from Philippine publishers (AutoIndustriya, CarGuide PH, Zigwheels PH, AutoDeal, Top Gear PH, Philstar, Rappler, CNN PH, Inquirer, BusinessWorld, Manila Bulletin) and global EV specialists (Electrek, InsideEVs, CleanTechnica) — all auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime. Previously fetched articles are retained across visits (up to 100 articles). Click any card or "Read more" to open the full article from the original source.
+    Headlines are pulled live from Philippine publishers (AutoIndustriya, CarGuide PH, Zigwheels PH, AutoDeal, Top Gear PH, Philstar, Rappler, CNN PH, Inquirer, BusinessWorld, Manila Bulletin) and global EV specialists (Electrek, InsideEVs, CleanTechnica) — all filtered for EV relevance and auto-categorized by topic. The page refreshes automatically on load and can be manually updated anytime. Previously fetched articles are retained across visits (up to 100 articles). Click any card or "Read more" to open the full article from the original source.
   </div>
 
   <!-- FOOTER -->
@@ -420,12 +420,10 @@
 
 <script>
 // ── FEEDS ──
-// Google News (PH-targeted) — pulls from Philstar, Rappler, CNN PH, etc.
 const GNEWS = (q, lang="en-PH", gl="PH", ceid="PH:en") =>
   "https://api.rss2json.com/v1/api.json?rss_url=" +
   encodeURIComponent(`https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=${lang}&gl=${gl}&ceid=${ceid}`);
 
-// Direct RSS — PH automotive / EV publishers
 const DIRECT = url =>
   "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(url);
 
@@ -447,18 +445,18 @@ const FEEDS = [
   GNEWS("Manila Bulletin electric vehicle"),
 
   // ── DIRECT RSS — PH Automotive Publishers ──
-  DIRECT("https://www.autoindustriya.com/feed"),           // AutoIndustriya
-  DIRECT("https://carguide.ph/feed"),                      // CarGuide PH
-  DIRECT("https://www.zigwheels.ph/rss/news"),             // Zigwheels PH
-  DIRECT("https://autodeal.com.ph/articles/rss"),          // AutoDeal PH
-  DIRECT("https://www.topgear.com.ph/rss"),                // Top Gear PH
+  DIRECT("https://www.autoindustriya.com/feed"),
+  DIRECT("https://carguide.ph/feed"),
+  DIRECT("https://www.zigwheels.ph/rss/news"),
+  DIRECT("https://autodeal.com.ph/articles/rss"),
+  DIRECT("https://www.topgear.com.ph/rss"),
 
   // ── GLOBAL EV SPECIALISTS (Direct RSS) ──
-  DIRECT("https://electrek.co/feed"),                      // Electrek
-  DIRECT("https://insideevs.com/rss/articles/all/"),       // InsideEVs
-  DIRECT("https://cleantechnica.com/feed/"),               // CleanTechnica
-  DIRECT("https://www.motortrend.com/feed/"),              // MotorTrend (EV coverage)
-  DIRECT("https://www.caranddriver.com/rss/all.xml/"),     // Car and Driver
+  DIRECT("https://electrek.co/feed"),
+  DIRECT("https://insideevs.com/rss/articles/all/"),
+  DIRECT("https://cleantechnica.com/feed/"),
+  DIRECT("https://www.motortrend.com/feed/"),
+  DIRECT("https://www.caranddriver.com/rss/all.xml/"),
 
   // ── GLOBAL EV — Google News ──
   GNEWS("electric vehicle news 2026", "en", "US", "US:en"),
@@ -475,9 +473,9 @@ const CAT_META = {
   battery: { label: "Battery Tech",         icon: "🔋"  },
 };
 
-let allArticles  = [];
+let allArticles   = [];
 let savedArticles = [];
-let activeCat    = "all";
+let activeCat     = "all";
 
 // ── HELPERS ──
 function stripHtml(h) {
@@ -492,12 +490,88 @@ function fmtDate(s) {
   return isNaN(d) ? "" : d.toLocaleDateString("en-PH", { month: "short", day: "numeric", year: "numeric" });
 }
 
+// ── EV RELEVANCE GATE ──
+// An article must match at least one of these terms to be accepted at all.
+// This is the first check — before any categorization.
+const EV_CORE_TERMS = [
+  // Generic EV terms
+  "electric vehicle", "electric car", "electric truck", "electric bus",
+  "electric motorcycle", "electric bike", "electric jeepney", "e-jeepney",
+  "electric tricycle", "e-tricycle",
+  // Abbreviations
+  " ev ", " evs ", " bev ", " phev ", " hev ", " fcev ", " mhev ",
+  // EV tech & infrastructure
+  "plug-in hybrid", "plug-in", "hybrid electric",
+  "charging station", "charging port", "fast charger", "dc charger",
+  "level 2 charger", "home charger", "ev charger", "evcs",
+  "battery pack", "battery range", "range anxiety",
+  "kilowatt-hour", "kilowatt hour", " kwh", " kw ", " kwh ",
+  "regenerative braking", "one-pedal", "onboard charger",
+  "vehicle-to-grid", "v2g", "v2l", "vehicle-to-load",
+  "solid.state battery", "solid state battery", "lfp battery", "nmc battery",
+  "lithium-ion", "lithium ion", "sodium-ion",
+  "gigafactory", "gigawatt",
+  // EV brands — PH-relevant
+  "byd", "wuling", "vinfast", "mg zs ev", "mg4", "mg5",
+  "nissan leaf", "nissan ariya",
+  "hyundai ioniq", "ioniq 5", "ioniq 6",
+  "kia ev6", "kia ev9", "kia niro ev",
+  "geely", "jetour", "jaecoo", "changan ev", "kaiyi",
+  "foton", "maxus ev", "dfsk", "ora",
+  "peugeot e-", "renault zoe", "renault megane e",
+  "volvo ex", "volvo ec",
+  "bmw i4", "bmw ix", "bmw i5", "bmw i7",
+  "mercedes eqs", "mercedes eqa", "mercedes eqb", "mercedes eqe",
+  "audi e-tron", "audi q4 e-tron",
+  "volkswagen id.", "vw id.",
+  "ford mustang mach-e", "ford f-150 lightning",
+  "chevy bolt", "chevrolet bolt",
+  "rivian", "lucid motors", "lucid air",
+  "polestar", "xpeng", "nio ", "li auto", "zeekr", "leapmotor",
+  "tesla ",
+  // PH-specific EV policy & agencies
+  "evida", "evap", "evindustry",
+  "doe ev", "ev policy", "ev incentive", "ev registration",
+  "lto ev", "ltfrb ev", "dotr ev",
+  "executive order.*ev", "republic act.*ev",
+  "ev subsidy", "ev tax", "ev rebate",
+  "ev coding exemption", "coding exemption.*ev",
+  // General EV market terms
+  "zero emission", "zero-emission",
+  "electrification", "decarbonization",
+  "ev market", "ev sales", "ev adoption", "ev fleet",
+  "ev infrastructure", "ev ecosystem",
+];
+
+function isEVRelevant(title, description) {
+  // Build a combined lowercase text from title + description for matching
+  const text = ` ${(title + " " + description).toLowerCase()} `;
+  return EV_CORE_TERMS.some(term => {
+    // Terms with regex special chars use RegExp, others use simple includes
+    if (/[.*+?^${}()|[\]\\]/.test(term)) {
+      try { return new RegExp(term, "i").test(text); } catch (_) { return false; }
+    }
+    return text.includes(term);
+  });
+}
+
+// ── CATEGORIZE (only called AFTER isEVRelevant passes) ──
 function categorize(title) {
   const t = title.toLowerCase();
-  if (/evida|evap|\blto\b.*ev|ev.*\blto\b|doe.*ev|ev.*doe|ievap|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|incentive.*phil|ev.*incentive|charging.*station.*phil|evcs|evindustry/.test(t)) return "policy";
-  if (/battery|solid.?state|\blfp\b|\bnmc\b|lithium.ion|cobalt|cathode|anode|energy density|gigafactory|cell tech|\bkwh\b|kilowatt/.test(t)) return "battery";
-  if (/new.*electric.*car|new.*ev\b|launch|unveil|debut|reveal|upcoming|arrives.*ph|ph.*price|\bbyd\b|\bmg\b|vinfast|wuling|geely|jetour|jaecoo|changan|kaiyi/.test(t)) return "model";
+
+  // Policy / regulatory — must be checked first (most specific)
+  if (/evida|evap|\blto\b.*ev|ev.*\blto\b|doe.*ev|ev.*doe|evindustry|ltfrb.*ev|dotr.*ev|executive order.*ev|republic act.*ev|senate.*ev|congress.*ev|ev.*incentive|incentive.*ev|ev.*subsidy|charging.*station.*phil|evcs|ev.*policy|policy.*ev|ev.*law|ev.*regulation|ev.*rebate|ev.*tax|ev.*coding|coding.*ev/.test(t)) return "policy";
+
+  // Battery tech
+  if (/battery|solid.?state|\blfp\b|\bnmc\b|lithium.ion|lithium ion|sodium.ion|cobalt|cathode|anode|energy density|gigafactory|cell tech|\bkwh\b|kilowatt|gigawatt/.test(t)) return "battery";
+
+  // New / upcoming models
+  if (/new.*electric|new.*ev\b|launch|unveil|debut|reveal|upcoming|arrives.*ph|ph.*price|first look|first drive|hands.on|review.*ev|ev.*review|\bbyd\b|\bmg\b|vinfast|wuling|geely|jetour|jaecoo|changan|kaiyi|ioniq|polestar|rivian|lucid|xpeng|\bnio\b|zeekr|leapmotor|tesla/.test(t)) return "model";
+
+  // PH-specific — only if it's already EV-relevant (gated above)
   if (/philipp|manila|luzon|visayas|mindanao|\bphl\b|pinoy|makati|cebu|quezon.city|pasig|cavite|laguna|clark/.test(t)) return "ph";
+
+  // Fallback: global EV
   return "global";
 }
 
@@ -526,13 +600,18 @@ async function loadNews() {
       r.value.items.slice(0, 10).forEach(item => {
         const title = stripHtml(item.title || "").trim();
         if (!title || seen.has(title)) return;
+
+        const rawDesc = stripHtml(item.description || item.content || "").trim();
+
+        // ── EV RELEVANCE GATE ──
+        // Reject the article entirely if it has no EV content.
+        if (!isEVRelevant(title, rawDesc)) return;
+
         seen.add(title);
 
         const cat     = categorize(title);
-        const rawDesc = stripHtml(item.description || item.content || "").trim();
         const summary = rawDesc.length > 200 ? rawDesc.slice(0, 197) + "…" : (rawDesc || "Click to read the full article.");
 
-        // Friendly source name mapping
         const DOMAIN_NAMES = {
           "autoindustriya.com":  "AutoIndustriya",
           "carguide.ph":         "CarGuide PH",
